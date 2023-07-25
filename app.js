@@ -1,6 +1,12 @@
 const express = require('express')
 const app = express()
 
+if(process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+require('./config/mongoose')
+
 app.get('/', (req, res) => {
   res.send('success')
 })
