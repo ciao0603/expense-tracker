@@ -13,6 +13,8 @@ const app = express()
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+app.use(express.urlencoded({extended: true}))
+
 app.get('/', (req, res) => {
   Record
     .find()
@@ -25,9 +27,18 @@ app.get('/', (req, res) => {
     })
     .catch(err => console.log(err))
 })
+// 新增
 app.get('/records/new', (req, res) => {
   res.render('new')
 })
+app.post('/records', (req, res) => {
+  const {name, date, category, amount} = req.body
+  Record
+    .create({ name, date, category, amount })
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
+// 修改
 app.get('/records/edit', (req, res) => {
   res.render('edit')
 })
