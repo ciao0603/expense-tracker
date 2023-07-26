@@ -69,6 +69,15 @@ app.put('/records/:id', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
+// 刪除
+app.delete('/records/:id', (req, res) => {
+  const id = req.params.id
+  Record
+    .findById(id)
+    .then(record => record.deleteOne({_id: id}))
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
 
 
 const port = 3000
