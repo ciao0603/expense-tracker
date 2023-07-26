@@ -43,12 +43,12 @@
       </li>
       <div class="btn-group d-flex"
         style="height: 40px; width: 0; margin-top: 15px;">
-        <a href="./records/edit"
+        <a href="./records/{{this._id}}/edit"
           style="margin-left: 20px; white-space: nowrap;">
           <button class="btn btn-outline-dark me-3">
             修改
           </button></a>
-        <form action="./records/:id?_method=DELETE"
+        <form action="./records/{{this._id}}?_method=DELETE"
           method="POST"
           style=" white-space: nowrap;">
           <button class="btn btn-outline-dark"
