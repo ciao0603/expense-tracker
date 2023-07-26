@@ -13,6 +13,12 @@ app.set('view engine', 'hbs')
 app.get('/', (req, res) => {
   res.render('index')
 })
+app.get('/records/new', (req, res) => {
+  res.render('new')
+})
+app.get('/records/edit', (req, res) => {
+  res.render('edit')
+})
 
 const port = 3000
 app.listen(port, () => {
