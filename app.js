@@ -1,5 +1,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const dayjs = require('dayjs')
 
 const Record = require('./models/record')
 
@@ -16,7 +17,12 @@ app.get('/', (req, res) => {
   Record
     .find()
     .lean()
-    .then(records => res.render('index', { records }))
+    .then(records => {
+      records.forEach(record => {
+        record.date = dayjs(record.date).format("YYYY/MM/DD")
+      })
+      res.render('index', { records })
+    })
     .catch(err => console.log(err))
 })
 app.get('/records/new', (req, res) => {
@@ -25,6 +31,7 @@ app.get('/records/new', (req, res) => {
 app.get('/records/edit', (req, res) => {
   res.render('edit')
 })
+
 
 const port = 3000
 app.listen(port, () => {
