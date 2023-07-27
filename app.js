@@ -26,13 +26,28 @@ app.get('/', async (req, res) => {
     records.forEach(record => {
       record.date = dayjs(record.date).format("YYYY/MM/DD")
       totalAmount += record.amount
-      console.log(totalAmount)
     })
 
     const categories = await Category.find().lean()
 
     res.render('index', { records, categories, totalAmount })
 
+  } catch (err) {
+    console.error(err)
+  }
+})
+// 依類別搜尋
+app.get('/search', async (req, res) => {
+  try {
+    const categoryId = req.query.sort
+    const records = await Record.find({ categoryId }).lean()
+    let totalAmount = 0
+    records.forEach(record => {
+      record.date = dayjs(record.date).format("YYYY/MM/DD")
+      totalAmount += record.amount
+    })
+    const categories = await Category.find().lean()
+    res.render('index', { records, categories, totalAmount })
   } catch (err) {
     console.error(err)
   }
