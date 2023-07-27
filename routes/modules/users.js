@@ -3,7 +3,7 @@ const router = express.Router()
 
 // login
 router.get('/login', (req, res) => {
-  res.send('login')
+  res.render('login')
 })
 // logout
 router.get('/logout', (req, res) => {
