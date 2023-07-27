@@ -4,6 +4,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -23,6 +24,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
+usePassport(app)
 
 app.use(routes)
 
