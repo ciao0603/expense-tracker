@@ -19,17 +19,23 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(methodOverride('_method'))
 
-app.get('/', (req, res) => {
-  Record
-    .find()
-    .lean()
-    .then(records => {
-      records.forEach(record => {
-        record.date = dayjs(record.date).format("YYYY/MM/DD")
-      })
-      res.render('index', { records })
+app.get('/', async (req, res) => {
+  try {
+    const records = await Record.find().lean()
+    let totalAmount = 0
+    records.forEach(record => {
+      record.date = dayjs(record.date).format("YYYY/MM/DD")
+      totalAmount += record.amount
+      console.log(totalAmount)
     })
-    .catch(err => console.log(err))
+
+    const categories = await Category.find().lean()
+
+    res.render('index', { records, categories, totalAmount })
+
+  } catch (err) {
+    console.error(err)
+  }
 })
 // 新增
 app.get('/records/new', async (req, res) => {

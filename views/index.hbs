@@ -5,11 +5,9 @@
     <select class="form-select"
       aria-label="Default select example">
       <option selected>類別</option>
-      <option value="家居物業">家居物業</option>
-      <option value="交通出行">交通出行</option>
-      <option value="休閒娛樂">休閒娛樂</option>
-      <option value="餐飲食品">餐飲食品</option>
-      <option value="其他">其他</option>
+      {{#each categories}}
+      <option value="{{this._id}}">{{this.name}}</option>
+      {{/each}}
     </select>
   </form>
 </div>
@@ -17,7 +15,7 @@
 <div class="d-flex justify-content-between mt-3">
   <p class="mb-0">總金額:</p>
   <p class="fs-1 mt-1 fw-bold"
-    style="color:#fd7e14">100000</p>
+    style="color:#fd7e14">{{totalAmount}}</p>
 </div>
 {{!-- records --}}
 <div class="data-penal">
