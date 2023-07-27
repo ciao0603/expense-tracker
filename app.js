@@ -4,6 +4,7 @@ const dayjs = require('dayjs')
 const methodOverride = require('method-override')
 
 const Record = require('./models/record')
+const Category = require('./models/category')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -31,27 +32,36 @@ app.get('/', (req, res) => {
     .catch(err => console.log(err))
 })
 // 新增
-app.get('/records/new', (req, res) => {
-  res.render('new')
+app.get('/records/new', async (req, res) => {
+  try {
+    const categories = await Category.find().lean()
+    res.render('new', { categories })
+  } catch (err) {
+    console.error(err)
+  }
 })
 app.post('/records', (req, res) => {
-  const { name, date, category, amount } = req.body
+  const { name, date, categoryId, amount } = req.body
   Record
-    .create({ name, date, category, amount })
+    .create({ name, date, categoryId, amount })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 // 修改
-app.get('/records/:id/edit', (req, res) => {
-  const id = req.params.id
-  Record
-    .findById(id)
-    .lean()
-    .then(record => {
-      record.date = dayjs(record.date).format('YYYY-MM-DD')
-      res.render('edit', { record })
-    })
-    .catch(err => console.log(err))
+app.get('/records/:id/edit', async (req, res) => {
+  try {
+    const id = req.params.id
+
+    const record = await Record.findById(id).lean()
+    record.date = dayjs(record.date).format('YYYY-MM-DD')
+
+    const categories = await Category.find().lean()
+
+    res.render('edit', { record, categories })
+
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 app.put('/records/:id', (req, res) => {
@@ -74,7 +84,7 @@ app.delete('/records/:id', (req, res) => {
   const id = req.params.id
   Record
     .findById(id)
-    .then(record => record.deleteOne({_id: id}))
+    .then(record => record.deleteOne({ _id: id }))
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
