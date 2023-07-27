@@ -56,13 +56,13 @@ app.get('/records/:id/edit', (req, res) => {
 
 app.put('/records/:id', (req, res) => {
   const id = req.params.id
-  const { name, date, category, amount } = req.body
+  const { name, date, categoryId, amount } = req.body
   Record
     .findById(id)
     .then(record => {
       record.name = name
       record.date = date
-      record.category = category
+      record.categoryId = categoryId
       record.amount = amount
       return record.save()
     })
