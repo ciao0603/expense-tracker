@@ -17,6 +17,12 @@ router.get('/new', async (req, res) => {
 router.post('', (req, res) => {
   const userId = req.user._id
   const { name, date, categoryId, amount } = req.body
+  
+  const errors = []
+  if (!name || !date || !categoryId || !amount) {
+    errors.push({message: '所有欄位皆為必填'})
+    return res.render('new', { errors, name, date, categoryId, amount })
+  }
   Record
     .create({ name, date, categoryId, amount, userId })
     .then(() => res.redirect('/'))
@@ -28,7 +34,7 @@ router.get('/:id/edit', async (req, res) => {
     const userId = req.user._id
     const _id = req.params.id
 
-    const record = await Record.findOne({userId, _id}).lean()
+    const record = await Record.findOne({ userId, _id }).lean()
     record.date = dayjs(record.date).format('YYYY-MM-DD')
 
     const categories = await Category.find().lean()
@@ -44,8 +50,14 @@ router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
   const { name, date, categoryId, amount } = req.body
+
+  const errors = []
+  if (!name || !date || !categoryId || !amount) {
+    errors.push({ message: '所有欄位皆為必填' })
+    return res.render('new', { errors, name, date, categoryId, amount })
+  }
   Record
-    .findOne({userId, _id})
+    .findOne({ userId, _id })
     .then(record => {
       record.name = name
       record.date = date

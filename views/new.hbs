@@ -1,3 +1,4 @@
+{{> message}}
 <form action="/records"
   method="POST">
   <div class="row form-group m-5 align-items-center">
@@ -16,7 +17,8 @@
     <div class="col-sm-10">
       <input type="text"
         class="form-control"
-        name="name">
+        name="name"
+        value="{{name}}">
     </div>
   </div>
   <div class="row form-group m-5">
@@ -27,7 +29,8 @@
     <div class="col-sm-10">
       <input type="date"
         class="form-control"
-        name="date">
+        name="date"
+        value="{{date}}">
     </div>
   </div>
   <div class="row form-group m-5">
@@ -38,7 +41,8 @@
     <div class="col-sm-10">
       <select class="form-control"
         name="categoryId"
-        id="categoryId">
+        id="categoryId"
+        value="{{categoryId}}">
         <option selected
           hidden>Select</option>
         {{#each categories}}
@@ -55,7 +59,8 @@
     <div class="col-sm-10">
       <input type="number"
         class="form-control"
-        name="amount">
+        name="amount"
+        value="{{amount}}">
     </div>
   </div>
   <div class="d-flex justify-content-center m-5">
