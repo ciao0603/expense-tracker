@@ -15,7 +15,7 @@
     <nav class="navbar navbar-light bg-primary justify-content-between">
       <div class="container-fluid mx-3">
         <a class="navbar-brand fw-bold"
-          href="/">家庭記帳本</a>
+          href="/">{{#if user.name}}{{user.name}}的{{/if}}家庭記帳本</a>
         {{#if isAuthenticated}}
         <a href="/users/logout"
           class="btn btn-outline-light">Logout</a>
