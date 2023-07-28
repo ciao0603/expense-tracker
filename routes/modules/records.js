@@ -38,8 +38,9 @@ router.get('/:id/edit', async (req, res) => {
     record.date = dayjs(record.date).format('YYYY-MM-DD')
 
     const categories = await Category.find().lean()
+    const categoryId = record.categoryId
 
-    res.render('edit', { record, categories })
+    res.render('edit', { record, categories, categoryId })
 
   } catch (err) {
     console.error(err)

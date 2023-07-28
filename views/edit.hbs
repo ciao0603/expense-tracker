@@ -42,7 +42,7 @@
         name="categoryId"
         id="categoryId">
         {{#each categories}}
-        <option value="{{this._id}}">{{this.name}}
+        <option value="{{this._id}}" {{isSelected this._id ../categoryId}}>{{this.name}}
         </option>
         {{/each}}
       </select>

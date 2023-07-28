@@ -1,0 +1,9 @@
+module.exports = {
+  isSelected: (a, b) => {
+    if (a.toString() === b.toString()) {
+      return 'selected'
+    } else {
+      return ''
+    }
+  }
+}

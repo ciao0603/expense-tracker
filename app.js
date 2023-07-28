@@ -6,6 +6,7 @@ const flash = require('connect-flash')
 
 const routes = require('./routes')
 const usePassport = require('./config/passport')
+const helpers = require('./utils/helpers')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -13,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
 require('./config/mongoose')
 
 const app = express()
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers }))
 app.set('view engine', 'hbs')
 
 app.use(express.urlencoded({ extended: true }))
