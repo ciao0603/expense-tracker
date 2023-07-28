@@ -9,7 +9,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   try {
     const userId = req.user._id
-    const records = await Record.find({ userId }).lean()
+    const records = await Record.find({ userId }).populate('categoryId').lean()
     let totalAmount = 0
     records.forEach(record => {
       record.date = dayjs(record.date).format("YYYY/MM/DD")
