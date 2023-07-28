@@ -15,18 +15,20 @@ router.get('/new', async (req, res) => {
   }
 })
 router.post('', (req, res) => {
+  const userId = req.user._id
   const { name, date, categoryId, amount } = req.body
   Record
-    .create({ name, date, categoryId, amount })
+    .create({ name, date, categoryId, amount, userId })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 // 修改
 router.get('/:id/edit', async (req, res) => {
   try {
-    const id = req.params.id
+    const userId = req.user._id
+    const _id = req.params.id
 
-    const record = await Record.findById(id).lean()
+    const record = await Record.findOne({userId, _id}).lean()
     record.date = dayjs(record.date).format('YYYY-MM-DD')
 
     const categories = await Category.find().lean()
@@ -39,10 +41,11 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, date, categoryId, amount } = req.body
   Record
-    .findById(id)
+    .findOne({userId, _id})
     .then(record => {
       record.name = name
       record.date = date
@@ -55,10 +58,11 @@ router.put('/:id', (req, res) => {
 })
 // 刪除
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   Record
-    .findById(id)
-    .then(record => record.deleteOne({ _id: id }))
+    .findOne({ userId, _id })
+    .then(record => record.deleteOne({ _id }))
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })

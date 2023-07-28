@@ -8,7 +8,8 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
   try {
-    const records = await Record.find().lean()
+    const userId = req.user._id
+    const records = await Record.find({ userId }).lean()
     let totalAmount = 0
     records.forEach(record => {
       record.date = dayjs(record.date).format("YYYY/MM/DD")
@@ -23,8 +24,9 @@ router.get('/', async (req, res) => {
 // 依類別搜尋
 router.get('/search', async (req, res) => {
   try {
+    const userId = req.user._id
     const categoryId = req.query.sort
-    const records = await Record.find({ categoryId }).lean()
+    const records = await Record.find({ userId, categoryId }).lean()
     let totalAmount = 0
     records.forEach(record => {
       record.date = dayjs(record.date).format("YYYY/MM/DD")
