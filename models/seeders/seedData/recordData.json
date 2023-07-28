@@ -1,0 +1,86 @@
+[
+  {
+    "name": "早餐",
+    "date": "2023-07-05",
+    "categoryName": "餐飲食品",
+    "amount": 80
+  },
+  {
+    "name": "午餐",
+    "date": "2023-07-05",
+    "categoryName": "餐飲食品",
+    "amount": 130
+  },
+  {
+    "name": "下午茶",
+    "date": "2023-07-10",
+    "categoryName": "餐飲食品",
+    "amount": 190
+  },
+  {
+    "name": "晚餐",
+    "date": "2023-07-05",
+    "categoryName": "餐飲食品",
+    "amount": 200
+  },
+  {
+    "name": "買吸塵器",
+    "date": "2023-07-16",
+    "categoryName": "家居物業",
+    "amount": 800
+  },
+  {
+    "name": "電費",
+    "date": "2023-07-15",
+    "categoryName": "家居物業",
+    "amount": 325
+  },
+  {
+    "name": "油費",
+    "date": "2023-07-08",
+    "categoryName": "交通出行",
+    "amount": 450
+  },
+  {
+    "name": "火車票",
+    "date": "2023-07-29",
+    "categoryName": "交通出行",
+    "amount": 175
+  },
+  {
+    "name": "逛展覽",
+    "date": "2023-07-29",
+    "categoryName": "休閒娛樂",
+    "amount": 150
+  },
+  {
+    "name": "運動中心",
+    "date": "2023-07-23",
+    "categoryName": "休閒娛樂",
+    "amount": 50
+  },
+  {
+    "name": "房租",
+    "date": "2023-07-10",
+    "categoryName": "其他",
+    "amount": 8000
+  },
+  {
+    "name": "保險費",
+    "date": "2023-06-15",
+    "categoryName": "其他",
+    "amount": 200
+  },
+  {
+    "name": "看診",
+    "date": "2023-07-25",
+    "categoryName": "其他",
+    "amount": 200
+  },
+  {
+    "name": "孝親費",
+    "date": "2023-06-01",
+    "categoryName": "其他",
+    "amount": 10000
+  }
+]

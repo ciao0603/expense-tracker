@@ -5,22 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const db = require('../../config/mongoose')
 
-const CATEGORY = [{
-  name: '家居物業',
-  icon: 'fa-house'
-}, {
-  name: '交通出行',
-  icon: 'fa-van-shuttle'
-}, {
-  name: '休閒娛樂',
-  icon: 'fa-face-grin-beam'
-},{
-  name: '餐飲食品',
-  icon: 'fa-utensils'
-},{
-  name: '其他',
-  icon: 'fa-pen'
-}]
+const CATEGORY = require('./seedData/categoryData.json')
 
 db.once('open', async() => {
   try {
@@ -29,6 +14,7 @@ db.once('open', async() => {
         .catch(err => console.log(err))
     }
     console.log('category done')
+    process.exit()
   } catch(err){
     console.error(err)
   }
