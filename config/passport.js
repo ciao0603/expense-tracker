@@ -9,15 +9,15 @@ module.exports = (app) => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
+  passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, async (req, email, password, done) => {
     try {
       const user = await User.findOne({ email })
       if (!user) {
-        return done(null, false, { message: 'no user' })
+        return done(null, false, req.flash('warning_msg', '帳號不存在，請先進行註冊'))
       }
       const isMatch = await bcrypt.compare(password, user.password)
       if (!isMatch) {
-        return done(null, false, { message: 'Email or password incorrect' })
+        return done(null, false, req.flash('warning_msg', 'Email或密碼錯誤'))
       }
       return done(null, user)
     } catch (err) {
