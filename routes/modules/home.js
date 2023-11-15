@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 router.get('/search', async (req, res) => {
   try {
     const userId = req.user._id
-    const categoryId = req.query.sort
+    const categoryId = req.query.sort.trim()
     const records = await Record.find({ userId, categoryId }).lean()
     let totalAmount = 0
     records.forEach(record => {
@@ -33,7 +33,7 @@ router.get('/search', async (req, res) => {
       totalAmount += record.amount
     })
     const categories = await Category.find().lean()
-    res.render('index', { records, categories, totalAmount })
+    res.render('index', { records, categories, totalAmount, categoryId })
   } catch (err) {
     console.error(err)
   }
