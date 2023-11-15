@@ -24,7 +24,6 @@ db.once('open', async () => {
       const userId = user._id
       for (let i = 0; i < RECORD.length; i++) {
         if (seedUser.recordIndex.includes(i)) {
-          console.log(i)
           const record = RECORD[i]
           const category = await Category.findOne({ name: record.categoryName }).lean()
           record.categoryId = category._id
