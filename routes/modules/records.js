@@ -17,15 +17,22 @@ router.get('/new', async (req, res) => {
 router.post('', (req, res) => {
   const userId = req.user._id
   const { name, date, categoryId, amount } = req.body
-  
+
   const errors = []
-  if (!name || !date || !categoryId || !amount) {
-    errors.push({message: '所有欄位皆為必填'})
-    return res.render('new', { errors, name, date, categoryId, amount })
-  }
-  Record
-    .create({ name, date, categoryId, amount, userId })
-    .then(() => res.redirect('/'))
+
+  Category.find().lean()
+    .then(categories => {
+      if (!name || !date || !amount) {
+        errors.push({ message: '所有欄位皆為必填' })
+        return res.render('new', { errors, name, date, categories, amount })
+      }
+      if (categoryId === 'Select') {
+        errors.push({ message: '尚未選擇類別' })
+        return res.render('new', { errors, name, date, categories, amount })
+      }
+      return Record.create({ name, date, categoryId, amount, userId })
+        .then(() => res.redirect('/'))
+    })
     .catch(err => console.log(err))
 })
 // 修改
